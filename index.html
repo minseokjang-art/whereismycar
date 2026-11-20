@@ -12,50 +12,52 @@
 <link rel="icon" type="image/png" href="/apple-touch-icon.png?v=2">
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#111216;color:white;
- font-family:-apple-system,sans-serif
-}
-main{max-width:480px;margin:auto;padding:20px 15px}
-h1{font-size:25px;margin:0}
-p{color:#999;font-size:13px}
-.card{
- background:#22252d;border-radius:18px;
- padding:20px;text-align:center;margin:20px 0
-}
-#preview{font-size:35px;font-weight:800;margin:10px 0}
-h3{font-size:14px;color:#aaa;margin:22px 0 10px}
-.grid{display:grid;gap:6px}
+html{background:#111216}
+body{margin:0;background:#111216;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}
+main{width:100%;max-width:480px;margin:auto;padding:14px 14px calc(12px + env(safe-area-inset-bottom));}
+h1{font-size:21px;line-height:1.2;letter-spacing:-.4px;margin:0 0 10px}
+small{font-size:11px;color:#9ca1ae}
+.last-card{background:#22252d;border-radius:14px;padding:12px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:73px}
+#last{font-size:29px;font-weight:800;line-height:1.15;white-space:nowrap;text-align:right}
+#time{display:block;font-size:10px;color:#999;margin-top:4px;text-align:right}
+.current{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:11px 0 5px;padding:8px 2px;min-height:38px}
+#preview{font-size:20px;font-weight:750;text-align:right}
+h3{font-size:12px;color:#b6bac5;margin:11px 0 6px;font-weight:650}
+.grid{display:grid;gap:5px}
 #floors{grid-template-columns:repeat(7,minmax(0,1fr))}
 #zones{grid-template-columns:repeat(8,minmax(0,1fr))}
-#keys{grid-template-columns:repeat(3,1fr)}
-button{
- background:#292d36;color:white;
- border:1px solid #414550;border-radius:10px;
- min-height:50px;font-size:17px;
- font-weight:600;cursor:pointer
-}
-#floors button,#zones button{
- font-size:12px;min-height:43px;padding:0
-}
-#keys button{font-size:23px;min-height:55px}
+#keys{grid-template-columns:repeat(3,minmax(0,1fr))}
+button{appearance:none;-webkit-appearance:none;touch-action:manipulation;background:#292d36;color:#fff;border:1px solid #414550;border-radius:9px;font-weight:650;cursor:pointer}
+#floors button,#zones button{font-size:12px;min-height:39px;padding:0}
+#keys button{font-size:21px;min-height:46px}
+#keys button:last-child{font-size:14px}
 button.active{background:#477dff;border-color:#477dff}
-#save{
- width:100%;height:60px;background:#477dff;
- border:0;font-size:18px;margin-top:20px
+#save{display:block;width:100%;min-height:51px;background:#477dff;border:0;font-size:17px;margin-top:12px;border-radius:12px}
+@media(max-height:720px){
+main{padding-top:9px}
+h1{font-size:19px;margin-bottom:7px}
+.last-card{min-height:62px;padding:8px 13px}
+#last{font-size:26px}
+.current{min-height:31px;margin:7px 0 3px;padding:5px 2px}
+h3{margin:8px 0 5px}
+#floors button,#zones button{min-height:36px}
+#keys button{min-height:41px}
+#save{min-height:46px;margin-top:9px}
 }
-#last{font-size:29px;font-weight:bold;margin:10px 0}
-small{color:#999}
 </style>
 </head>
 <body>
 <main>
 <h1>WHERE IS MY CAR</h1>
-<p>주차 위치를 간편하게 기록하세요.</p>
 
-<div class="card">
-<small>현재 선택 위치</small>
-<div id="preview">층 · 구역 · 번호</div>
+<div class="last-card" aria-label="마지막 주차 위치">
+ <div><small>마지막 주차 위치</small></div>
+ <div><div id="last">기록 없음</div><small id="time"></small></div>
+</div>
+
+<div class="current">
+ <small>현재 선택</small>
+ <div id="preview" aria-live="polite">층을 선택하세요</div>
 </div>
 
 <h3>01. 주차 층 (필수)</h3>
@@ -68,12 +70,6 @@ small{color:#999}
 <div id="keys" class="grid"></div>
 
 <button id="save">주차 위치 저장</button>
-
-<div class="card">
-<small>마지막 주차 위치</small>
-<div id="last">기록 없음</div>
-<small id="time"></small>
-</div>
 </main>
 
 <script>
