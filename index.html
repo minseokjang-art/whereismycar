@@ -120,7 +120,7 @@ create("keys",
 
 function formatPlace() {
  const parts = [];
- if (floorType && floorNumber) parts.push(floorType==="지하" ? "B"+floorNumber : "지상 "+floorNumber+"층");
+ if (floorType && floorNumber) parts.push(floorType==="지하" ? "지하 "+floorNumber+"층" : "지상 "+floorNumber+"층");
  if (zone || number) parts.push(zone + (number ? number.padStart(2,"0") : ""));
  return parts.join(" · ");
 }
