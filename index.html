@@ -27,7 +27,7 @@ h3{font-size:12px;color:#b6bac5;margin:11px 0 6px;font-weight:650}
 #floor-controls{display:grid;grid-template-columns:2fr 6fr;gap:8px}
 #floor-type{grid-template-columns:repeat(2,minmax(0,1fr))}
 #floors{grid-template-columns:repeat(6,minmax(0,1fr))}
-#zones{grid-template-columns:repeat(8,minmax(0,1fr))}
+#zones{grid-template-columns:repeat(9,minmax(0,1fr))}
 #keys{grid-template-columns:repeat(3,minmax(0,1fr))}
 button{appearance:none;-webkit-appearance:none;touch-action:manipulation;background:#292d36;color:#fff;border:1px solid #414550;border-radius:9px;font-weight:650;cursor:pointer}
 #floor-type button,#floors button,#zones button{font-size:12px;min-height:39px;padding:0}
@@ -103,7 +103,7 @@ create("floor-type",["B","지상"],v=>floorType=v);
 create("floors",["1","2","3","4","5","6"],v=>floorNumber=v);
 
 create("zones",
- ["A","B","C","D","E","F","G","H"],
+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
  v=>zone=zone===v?"":v);
 
 create("keys",
