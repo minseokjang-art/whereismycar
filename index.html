@@ -34,6 +34,10 @@ button{appearance:none;-webkit-appearance:none;touch-action:manipulation;backgro
 #keys button{font-size:21px;min-height:46px}
 #keys button:last-child{font-size:14px}
 button.active{background:#477dff;border-color:#477dff}
+#floor-type button:first-child{background:#303d5b;border-color:#51678f;color:#dce8ff}
+#floor-type button:last-child{background:#254d43;border-color:#3d8771;color:#d5fff0}
+#floor-type button:first-child.active{background:#346ad2;border-color:#80aaff;color:#fff;box-shadow:inset 0 0 0 1px #80aaff}
+#floor-type button:last-child.active{background:#168568;border-color:#66ddbd;color:#fff;box-shadow:inset 0 0 0 1px #66ddbd}
 #save{display:block;width:100%;min-height:51px;background:#477dff;border:0;font-size:17px;margin-top:12px;border-radius:12px}
 @media(max-height:720px){
 main{padding-top:9px}
@@ -99,7 +103,7 @@ function create(id,values,callback){
  });
 }
 
-create("floor-type",["B","지상"],v=>floorType=v);
+create("floor-type",["지하","지상"],v=>floorType=v);
 create("floors",["1","2","3","4","5","6"],v=>floorNumber=v);
 
 create("zones",
@@ -116,7 +120,7 @@ create("keys",
 
 function formatPlace() {
  const parts = [];
- if (floorType && floorNumber) parts.push(floorType==="B" ? "B"+floorNumber : "지상 "+floorNumber+"층");
+ if (floorType && floorNumber) parts.push(floorType==="지하" ? "B"+floorNumber : "지상 "+floorNumber+"층");
  if (zone || number) parts.push(zone + (number ? number.padStart(2,"0") : ""));
  return parts.join(" · ");
 }
