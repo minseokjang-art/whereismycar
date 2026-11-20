@@ -24,11 +24,13 @@ small{font-size:11px;color:#9ca1ae}
 #preview{font-size:20px;font-weight:750;text-align:right}
 h3{font-size:12px;color:#b6bac5;margin:11px 0 6px;font-weight:650}
 .grid{display:grid;gap:5px}
-#floors{grid-template-columns:repeat(7,minmax(0,1fr))}
+#floor-controls{display:grid;grid-template-columns:2fr 6fr;gap:8px}
+#floor-type{grid-template-columns:repeat(2,minmax(0,1fr))}
+#floors{grid-template-columns:repeat(6,minmax(0,1fr))}
 #zones{grid-template-columns:repeat(8,minmax(0,1fr))}
 #keys{grid-template-columns:repeat(3,minmax(0,1fr))}
 button{appearance:none;-webkit-appearance:none;touch-action:manipulation;background:#292d36;color:#fff;border:1px solid #414550;border-radius:9px;font-weight:650;cursor:pointer}
-#floors button,#zones button{font-size:12px;min-height:39px;padding:0}
+#floor-type button,#floors button,#zones button{font-size:12px;min-height:39px;padding:0}
 #keys button{font-size:21px;min-height:46px}
 #keys button:last-child{font-size:14px}
 button.active{background:#477dff;border-color:#477dff}
@@ -40,7 +42,7 @@ h1{font-size:19px;margin-bottom:7px}
 #last{font-size:26px}
 .current{min-height:31px;margin:7px 0 3px;padding:5px 2px}
 h3{margin:8px 0 5px}
-#floors button,#zones button{min-height:36px}
+#floor-type button,#floors button,#zones button{min-height:36px}
 #keys button{min-height:41px}
 #save{min-height:46px;margin-top:9px}
 }
@@ -61,7 +63,10 @@ h3{margin:8px 0 5px}
 </div>
 
 <h3>01. 주차 층 (필수)</h3>
-<div id="floors" class="grid"></div>
+<div id="floor-controls">
+ <div id="floor-type" class="grid" aria-label="지하 또는 지상"></div>
+ <div id="floors" class="grid" aria-label="층 번호"></div>
+</div>
 
 <h3>02. 주차 구역 (선택)</h3>
 <div id="zones" class="grid"></div>
@@ -73,7 +78,7 @@ h3{margin:8px 0 5px}
 </main>
 
 <script>
-let floor="",zone="",number="";
+let floorType="",floorNumber="",zone="",number="";
 const el=id=>document.getElementById(id);
 
 function create(id,values,callback){
@@ -94,9 +99,8 @@ function create(id,values,callback){
  });
 }
 
-create("floors",
- ["B1","B2","B3","B4","B5","B6","지상"],
- v=>floor=v);
+create("floor-type",["B","지상"],v=>floorType=v);
+create("floors",["1","2","3","4","5","6"],v=>floorNumber=v);
 
 create("zones",
  ["A","B","C","D","E","F","G","H"],
@@ -112,7 +116,7 @@ create("keys",
 
 function formatPlace() {
  const parts = [];
- if (floor) parts.push(floor);
+ if (floorType && floorNumber) parts.push(floorType==="B" ? "B"+floorNumber : "지상 "+floorNumber+"층");
  if (zone || number) parts.push(zone + (number ? number.padStart(2,"0") : ""));
  return parts.join(" · ");
 }
@@ -132,8 +136,8 @@ function load(){
 }
 
 el("save").onclick=()=>{
- if(!floor){
-  alert("주차 층을 선택하세요.");
+ if(!floorType||!floorNumber){
+  alert("지하/지상과 층 번호를 모두 선택하세요.");
   return;
  }
  const place=formatPlace();
