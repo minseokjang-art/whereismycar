@@ -1,0 +1,19 @@
+{
+  "name": "WHERE IS MY CAR",
+  "short_name": "내차어디",
+  "description": "주차 층과 구역, 번호를 빠르게 기록하는 웹앱",
+  "lang": "ko",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#111216",
+  "theme_color": "#111216",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
